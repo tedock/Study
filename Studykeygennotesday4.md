@@ -155,6 +155,7 @@ ssh www-data@localhost -p 41010 -D 9050
 proxychains nmap -T5 -Pn 192.168.150.253 -p 0-65535 2>/dev/null
 chmod 600 /home/student/stolenkey1_gun/.ssh/id_rsa.pub
 ssh -i /home/student/stolenkey1_gun/.ssh/id_rsa Comrade@192.168.150.253 -p 41011
+ssh -MS /tmp/jmp student@10.50.11.224 -L 41010:192.168.28.100:2222 -L 41011:192.168.150.253:3201
 
 
 cat /etc/hosts
