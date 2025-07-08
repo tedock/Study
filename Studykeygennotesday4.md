@@ -147,3 +147,13 @@ ssh comrade@localhost -p 41010 -L 41011:192.168.150.253:3201 -D 9050
 ssh -i /home/student/stolenkey/.ssh comrade@localhost -p 41011
 
 To get into the T3, you first need to establish connection to your T1 from your box, this is the master socket. From there you use a localhost login on the local port you opened up to connect to the jump on its open ssh port. You then set up a local port connecting to your T1's socket that now connects to the T3 on its open ssh port, and you can send proxychains up through that as well. Now you masquerade using the T1's ssh key , which is the ssh -i, connecting to the port you set up that sends yourself into the T3.
+
+For dumb S WORD !!!!!!!! <!> <!> <!> ############################################################################################################################################
+tar -xvf /home/student/stolenkey1 -C /home/student/stolenkey1_gun
+ssh -MS /tmp/jmp student@10.50.11.224 -L 41010:192.168.28.100:2222
+ssh www-data@localhost -p 41010 -D 9050 
+proxychains nmap -T5 -Pn 192.168.150.253 -p 0-65535 2>/dev/null
+ssh -i /home/student/stolenkey1_gun/.ssh/id_rsa comrade@localhost -p 41011
+
+
+cat /etc/rsyslog.d/50-default.conf
