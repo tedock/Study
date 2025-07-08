@@ -157,4 +157,6 @@ chmod 600 /home/student/stolenkey1_gun/.ssh/id_rsa.pub
 ssh -i /home/student/stolenkey1_gun/.ssh/id_rsa Comrade@192.168.150.253 -p 41011
 
 
-cat /etc/rsyslog.d/50-default.conf
+cat /etc/hosts
+(cat /etc/rsyslog.conf) cat /etc/rsyslog.d/50-default.conf
+
